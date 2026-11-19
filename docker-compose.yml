@@ -7,8 +7,6 @@ services:
     restart: unless-stopped
     volumes:
       - ./config.yaml:/etc/deco-rate/config.yaml:ro
-      - ./overrides/deco_rate/client.py:/app/.venv/lib/python3.12/site-packages/deco_rate/client.py:ro
-      - ./overrides/deco_rate/main.py:/app/.venv/lib/python3.12/site-packages/deco_rate/main.py:ro
     read_only: true
     tmpfs:
       - /tmp
