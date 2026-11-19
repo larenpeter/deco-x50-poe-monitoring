@@ -5,7 +5,9 @@ the [deco-rate](https://github.com/SimonJPegg/deco-rate) exporter.
 
 The exporter's own README names an XE75 as its tested model. This repo records
 that it also runs on a Deco X50-PoE, and packages a setup you can start with
-one command. The deployment files, config and dashboard tiles are my own work.
+one command. The Home Assistant integration that the exporter's API client comes
+from already lists the Deco X50 as tested. This repo adds the exporter on an
+X50-PoE. The deployment files, config and dashboard tiles are my own work.
 No upstream code is copied: Docker builds deco-rate from upstream at a pinned
 commit, and I did not modify its source.
 
@@ -41,9 +43,13 @@ After about two minutes, check that data arrives:
     docker compose exec prometheus wget -qO- 'http://localhost:9090/api/v1/query?query=deco_clients_total'
 
 ## Login notes
-- In my test the owner TP-Link ID worked. A second, manager-level account was
-  rejected as invalid credentials. I did not confirm that the account type was
-  the cause.
+- Use the Deco owner login. The Home Assistant integration this client comes
+  from documents that manager accounts do not work, and a manager account
+  was rejected as invalid credentials in my test.
+- The owner login can only hold one session. Signing into the Deco app as
+  the owner logs the exporter out, and the exporter's next login logs the
+  app out. Create a separate manager account in the Deco app (More, then
+  Managers) for daily use, and keep the owner login for the exporter.
 - The Deco counts failed logins (mine warned `8 attempts remaining`). Check
   `config.yaml` before the first start, and stop the container if you see that
   message.
