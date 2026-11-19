@@ -26,7 +26,6 @@ signal, a firmware-update flag and WAN info.
   `deco_node_backhaul_max_speed`) did not appear. The exporter reads a
   `backhual_speed` field (TP-Link's spelling) from each node, and my nodes did
   not return one. I did not investigate why.
-- Every poll logs `Failed to fetch firmware status: 404`. It is harmless: the
   X50 has no such page, and the other metrics are unaffected.
 
 ## Quick start

@@ -1,7 +1,7 @@
 services:
   deco-rate:
     build:
-      context: https://github.com/SimonJPegg/deco-rate.git#819ca53a4b91a18f3b609346711797d2f4c2f5a9
+      context: .
     image: deco-rate:x50
     container_name: deco-rate
     restart: unless-stopped
