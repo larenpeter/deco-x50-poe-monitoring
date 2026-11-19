@@ -1,0 +1,7 @@
+host: "http://192.168.0.1"
+username: "you@example.com"
+password: "CHANGE-ME"
+poll_interval_seconds: 120
+metrics_port: 9550
+verify_ssl: false
+timeout_seconds: 30
