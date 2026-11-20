@@ -8,8 +8,8 @@ that it also runs on a Deco X50-PoE, and packages a setup you can start with
 one command. The Home Assistant integration that the exporter's API client comes
 from already lists the Deco X50 as tested. This repo adds the exporter on an
 X50-PoE. The deployment files, config and dashboard tiles are my own work.
-No upstream code is copied: Docker builds deco-rate from upstream at a pinned
-commit, and I did not modify its source.
+No upstream code is stored here. Docker clones deco-rate at a pinned commit and
+applies three small patches while it builds the image, described under Patches.
 
 ## Tested on
 - Deco X50-PoE, hardware 1.0, firmware 1.2.5 Build 20231122 Rel. 58711, two nodes
@@ -27,6 +27,15 @@ signal, a firmware-update flag and WAN info.
   `backhual_speed` field (TP-Link's spelling) from each node, and my nodes did
   not return one. I did not investigate why.
   X50 has no such page, and the other metrics are unaffected.
+
+## Patches
+The Dockerfile edits the upstream source with `sed` after cloning it:
+- Firmware status: the X50-PoE answered the original request with a 404, so the
+  client now asks the `cloud` endpoint with `form=firmware_status` instead.
+- JSON parsing: the X50-PoE returns the value `Number.NaN`, which is not valid
+  JSON, so it is replaced with `null` before parsing.
+- Firmware flag: `deco_firmware_update_available` is 1 when an update is
+  available or when the firmware status is anything other than idle.
 
 ## Quick start
     git clone https://github.com/larenpeter/deco-x50-poe-monitoring.git
